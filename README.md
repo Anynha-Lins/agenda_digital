@@ -15,7 +15,7 @@
 
 ### **Requisitos Funcionais e Implementação**
 
-### **RF01: Cadastro de clientes (Nome, CPF, Data de Nascimento e Endereço)**
+#### **RF01: Cadastro de clientes (Nome, CPF, Data de Nascimento e Endereço)**
 
 - Implementado no método `save(Client client)`, que:
     1. **Valida os dados** do cliente (`validateClient()`).
