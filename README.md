@@ -33,7 +33,7 @@
 
 ---
 
-### **RF02: Edição dos dados de um cliente**
+#### **RF02: Edição dos dados de um cliente**
 
 - Implementado no método `update(Long id, Client updateClient)`, que:
     1. **Verifica se o cliente existe** pelo `id`.
@@ -57,7 +57,7 @@
 
 ---
 
-### **RF03: Exclusão de um cliente**
+#### **RF03: Exclusão de um cliente**
 
 - Implementado no método `delete(Long id)`, que:
     1. **Chama `deleteById(id)` do `clientRepository`** para remover o cliente do banco.
@@ -72,7 +72,7 @@
 
 ---
 
-### **RF04: Listagem de todos os clientes cadastrados**
+#### **RF04: Listagem de todos os clientes cadastrados**
 
 - Implementado no método `findAll()`, que:
     1. **Recupera todos os clientes do banco** (`clientRepository.findAll()`).
@@ -91,7 +91,7 @@
 
 ---
 
-### **RF05: Busca de um cliente pelo Nome ou CPF**
+#### **RF05: Busca de um cliente pelo Nome ou CPF**
 
 - Implementado no método `searchByCpfOrName(String cpf, String name)`, que:
     1. **Chama o método `findByCpfOrName` do `clientRepository`** para buscar clientes pelo CPF ou Nome.
@@ -106,7 +106,7 @@
 
 ---
 
-### **RF06: Cadastro de contatos para um cliente**
+#### **RF06: Cadastro de contatos para um cliente**
 
 - Implementado no método `getClientContacts(Long clientId)`, que:
     1. **Busca o cliente pelo `id`** no `clientRepository`.
@@ -124,7 +124,7 @@
 
 ---
 
-### **RF07: Edição dos contatos de um cliente**
+#### **RF07: Edição dos contatos de um cliente**
 
 - Implementado no método **`update(Long id, Contact updatedContact)`** *(ainda não presente, mas pode ser adicionado)*, seguindo esta lógica:
     1. **Verifica se o contato existe** (`findById(id)`).
@@ -151,7 +151,7 @@ public Contact update(Long id, Contact updatedContact) {
 
 ---
 
-### **RF08: Exclusão de um contato de um cliente**
+#### **RF08: Exclusão de um contato de um cliente**
 
 - Implementado no método **`delete(Long id)`**, que:
     1. **Chama `deleteById(id)` no `contactRepository`** para remover o contato do banco.
@@ -167,7 +167,7 @@ public void delete(Long id) {
 
 ---
 
-### **RF09: Listagem de todos os contatos de um cliente**
+#### **RF09: Listagem de todos os contatos de um cliente**
 
 - O método `getClientContacts(Long clientId)` retorna a lista de contatos vinculados ao cliente, atendendo a esse requisito.
 
@@ -189,7 +189,7 @@ public void delete(Long id) {
 
 ### **Regras de Negócio**
 
-### **RN01: Os campos Nome e CPF são obrigatórios no cadastro do cliente**
+#### **RN01: Os campos Nome e CPF são obrigatórios no cadastro do cliente**
 
 ```java
 private void validateClient(Client client) {
@@ -210,7 +210,7 @@ private void validateClient(Client client) {
 
 ---
 
-### **RN02: Os campos Tipo do Contato e Valor do Contato são obrigatórios no cadastro do contato**
+#### **RN02: Os campos Tipo do Contato e Valor do Contato são obrigatórios no cadastro do contato**
 
 ```java
 private void validateType(String type) {
@@ -231,7 +231,7 @@ private void validateValue(String value) {
 
 ---
 
-### **RN03: O CPF informado deve ser único no sistema**
+#### **RN03: O CPF informado deve ser único no sistema**
 
 - O campo CPF possui a restrição `unique = true` no banco de dados:
     
@@ -255,7 +255,7 @@ private void validateValue(String value) {
 
 ---
 
-### **RN04: O Nome do cliente não pode estar vazio**
+#### **RN04: O Nome do cliente não pode estar vazio**
 
 - O método `validateName(String name)` no `ClientService` impede que um nome vazio seja salvo:
     
@@ -271,7 +271,7 @@ private void validateValue(String value) {
 
 ---
 
-### **RN05: A Data de Nascimento deve ser válida**
+#### **RN05: A Data de Nascimento deve ser válida**
 
 - Implementado no método `validateBirthday(LocalDate birthday)`, que:
     1. Verifica se a data não é nula.
@@ -296,7 +296,7 @@ private void validateBirthday(LocalDate birthday) {
 
 ---
 
-### **RN06: Um cliente pode ter mais de um contato cadastrado**
+#### **RN06: Um cliente pode ter mais de um contato cadastrado**
 
 - O relacionamento **1 para N** entre `Client` e `Contact` garante isso.
 - No `ContactService`, o método `save(Contact contact)` permite o cadastro de novos contatos para um cliente.
@@ -315,7 +315,7 @@ private void validateBirthday(LocalDate birthday) {
 
 ---
 
-### **RN07: Ao excluir um cliente, todos os seus contatos devem ser removidos do sistema**
+#### **RN07: Ao excluir um cliente, todos os seus contatos devem ser removidos do sistema**
 
 - No código atual do `ClientService`, o método `delete(Long id)` remove o cliente, mas não há confirmação de que os contatos associados são excluídos automaticamente.
 - Para garantir isso, a entidade `Client` deve possuir a anotação `@OneToMany(cascade = CascadeType.ALL)`:
@@ -330,7 +330,7 @@ private void validateBirthday(LocalDate birthday) {
 
 ---
 
-### **RN08: O sistema deve validar os dados informados antes de permitir o cadastro ou edição**
+#### **RN08: O sistema deve validar os dados informados antes de permitir o cadastro ou edição**
 
 - Implementado em várias partes do código:
     - `validateClient(Client client)`: valida CPF e nome.
@@ -394,12 +394,9 @@ O sistema foi dividido em três camadas principais:
     - **MySQL** armazena os dados de clientes e contatos.
 
 ---
-
 ### **Instruções de Uso**
 
-### **Instruções de Uso**
-
-### **1. Requisitos do Sistema**
+#### **1. Requisitos do Sistema**
 
 - **Java**: A aplicação foi desenvolvida utilizando a **versão 17** do Java.
 - **Banco de Dados**: MySQL ou banco de dados compatível com JDBC.
@@ -408,7 +405,7 @@ O sistema foi dividido em três camadas principais:
     - **Node.js** (para o frontend, caso esteja usando React ou outras tecnologias).
     - **Maven**  (para o gerenciamento de dependências no backend).
 
-### **2. Configuração do Banco de Dados**
+#### **2. Configuração do Banco de Dados**
 
 1. **Criação do Banco de Dados**:
     - Certifique-se de que o banco de dados **agenda_digital** esteja criado no MySQL.
@@ -432,7 +429,7 @@ O sistema foi dividido em três camadas principais:
     - Para criar ou configurar projetos com **Java 17**, você pode usar o **Spring Boot Initializer** ([https://start.spring.io/](https://start.spring.io/)), selecionando a versão **Java 17** no campo **Project Metadata**.
     - Além disso, o Spring Boot Initializer permite gerar projetos com as dependências necessárias já configuradas.
 
-### **4. Configuração do Frontend**
+#### **4. Configuração do Frontend**
 
 1. **Instalar Dependências do Frontend**:
     - Para usar o React, vá para a pasta do frontend (onde o código do React está localizado) e execute o seguinte comando para instalar as dependências ou no cmd local:
@@ -452,7 +449,7 @@ O sistema foi dividido em três camadas principais:
         
     - O servidor estará disponível no **localhost: 5173**
 
-### **5. Acessando a Aplicação (Certifique-se de que as portas estão livres)**
+#### **5. Acessando a Aplicação (Certifique-se de que as portas estão livres)**
 
 - **Backend**: A API estará disponível em [**http://localhost:8080**](http://localhost:8080/).
 - **Frontend**: A interface estará disponível em [http://localhost:5173/](http://localhost:5173/)
@@ -515,7 +512,7 @@ Para o backend, usar as dependências instaladas com o **Maven**. São elas:
     ```
     
 
-### **Instalando as Dependências (Maven)**
+#### **Instalando as Dependências (Maven)**
 
 Para instalar as dependências no backend com Maven, basta executar o comando:
 
@@ -526,7 +523,7 @@ mvn clean install
 
 ---
 
-### **Frontend (React)**
+#### **Frontend (React)**
 
 Para o frontend, a biblioteca principal foi **React**, as dependências utilizadas em conjunto são:
 
@@ -576,7 +573,7 @@ Para o frontend, a biblioteca principal foi **React**, as dependências utilizad
     ```
     
 
-### **Instalando as Dependências (React)**
+#### **Instalando as Dependências (React)**
 
 Para instalar as dependências no frontend com npm, basta executar o comando:
 
@@ -587,7 +584,6 @@ npm install
 
 ---
 
-Essas dependências são necessárias para a construção do seu projeto tanto no **backend** quanto no **frontend**, e você pode configurar o projeto para rodar corretamente em sua máquina local.
 
 ### **Script de Banco de Dados**
 
